@@ -55,3 +55,46 @@ console.log(myStack.size(), 'should be 2')
 console.log(myStack.pop(), 'popped off');
 console.log(myStack.size(), 'should be 1');
 console.log(myStack)
+
+
+// Stack using an object
+
+function Stack2(capacity) {
+  this.capacity = capacity || Infinity;
+  this.storage = {};
+  this.count = 0;
+}
+
+Stack2.prototype.push = function(value) {
+  if (this.count < this.capacity) {
+    this.storage[this.count] = value;
+    this.count += 1;
+    return this.count;
+  }
+  return 'Capacity at max, please remove an item before adding a new one.'
+}
+
+Stack2.prototype.pop = function() {
+  this.count -= 1;
+  var value = this.storage[this.count];
+  delete this.storage[this.count];
+  if (this.count < 0) {
+    this.count = 0;
+  };
+  return value;
+}
+
+Stack2.prototype.peek = function() {
+  return this.storage[this.count -1];
+}
+
+Stack.prototype.count = function() {
+  return this.count;
+}
+
+var myStack2 = new Stack2(3);
+console.log(myStack2.push('a'), 'should be 1');
+console.log(myStack2.push('b'), 'should be 2');
+console.log(myStack2.push('c'), 'should be 3');
+console.log(myStack2.push('d'), '--should be Max capacity reached message');
+console.log(myStack2.pop(), 'should be c');
